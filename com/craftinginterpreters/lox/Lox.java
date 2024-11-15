@@ -60,13 +60,20 @@ public class Lox {
         if (hadError)
             return;
 
+        Resolver resolver = new Resolver(interpreter);
+        resolver.resolve(statements);
+
+        // Stop if there was a resolution error.
+        if (hadError)
+            return;
+
         interpreter.interpret(statements);
 
         // System.out.println(new AstPrinter().print(statements));
 
         // For now, just print the tokens
         for (Token token : tokens) {
-            System.out.println(token);
+            // System.out.println(token);
         }
 
         // Indicate an error in the exit code
